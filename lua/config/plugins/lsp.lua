@@ -20,7 +20,7 @@ return {
         --require'lspconfig'.clangd.setup{capabilities = capabilities}  
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = {"jdtls", "html", "cssls", "pyright"}
+		ensure_installed = {"jdtls", "html", "cssls", "pyright", "clangd", "lua_ls", "ts_ls"}
 	})
 	--    ensure_installed = {"ts_ls", "html", "cssls"}--add java, clang, python, etc
 --	})
