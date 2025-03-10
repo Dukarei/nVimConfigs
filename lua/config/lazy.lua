@@ -24,8 +24,10 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    {"folke/tokyonight.nvim"; config = function() vim.cmd.colorscheme "tokyonight-night" end },
-    {"nvim-lua/plenary.nvim"},
+   -- {"folke/tokyonight.nvim"; config = function() vim.cmd.colorscheme "tokyonight-night" end },
+--  {"rebelot/kanagawa.nvim"; config = function() vim.cmd("colorscheme kanagawa-dragon") end },
+{ "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
+   {"nvim-lua/plenary.nvim"},
     -- import your plugins
     {"pmizio/typescript-tools.nvim",dependencies = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },opts = {}},
     {"williamboman/mason.nvim"},

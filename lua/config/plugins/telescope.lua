@@ -16,6 +16,7 @@ return {
 		}
 	    }
 	    vim.keymap.set("n", "<space>tf", require('telescope.builtin').find_files)
+--	    vim.keymap.set("n", "<space>th", require('telescope.builtin').find_files{cwd = "/home/dkry"})
 	    --this one would enable 'tf' to go to a specific directory, in this instance the default config dir vim.keymap.set("n", "tf", require('telescope.builtin').find_files{cwd = vim.fn.stdpath("config")})
 	end
     }

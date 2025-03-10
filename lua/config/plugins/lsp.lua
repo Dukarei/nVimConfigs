@@ -20,13 +20,14 @@ return {
         --require'lspconfig'.clangd.setup{capabilities = capabilities}  
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = {"jdtls", "html", "cssls", "pyright", "clangd", "lua_ls", "ts_ls"}
+		ensure_installed = {"jdtls", "html", "cssls", "pyright", "lua_ls", "ts_ls"}--clangd from Mason never works
 	})
 	--    ensure_installed = {"ts_ls", "html", "cssls"}--add java, clang, python, etc
 --	})
 	require("lspconfig").lua_ls.setup{}--cmd = {'cd home/dkry/.config/lsp/lua-language-server/bin/ && ./lua-language-server'}}
 	require("lspconfig").jdtls.setup{}
 	require("lspconfig").clangd.setup{}
+	require("lspconfig").pyright.setup{}
 	--require("lspconfig").ts_ls.setup{}
 	require("lspconfig").html.setup{}
 	require("lspconfig").cssls.setup{}
