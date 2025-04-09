@@ -2,7 +2,7 @@ require('dkry')
 require("config.lazy")
 
 vim.opt.shiftwidth = 4 --changes tab width I believe
-vim.opt.clipboard = "unnamedplus" --makes 'p' work w/ clipboard
+vim.opt.clipboard:append("unnamedplus") --makes 'p' work w/ clipboard
 
 --should enable hybrid line numbers
 vim.wo.number = true
@@ -38,7 +38,29 @@ vim.keymap.set("n", "<space>st", function()
     vim.cmd.vnew()
     vim.cmd.term()
     vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0,7)
+    vim.api.nvim_win_set_height(0,12)
 
     job_id = vim.bo.channel
+end)
+
+function find_last_of(str, char)
+    local last_index = 0
+    for i=1, #str do
+	if str:sub(i,i) == char then
+	    last_index = i
+	end
+    end
+    return last_index
+end
+
+--make keycommands to autocompile jfx stuff(you need a $PATH_TO_FX var and fxml/swing are not included in this command)<-check openjfx.io
+vim.keymap.set("n", "<space>jfxc", function()
+    local fullname = vim.api.nvim_buf_get_name(0)
+    local filename = fullname:sub(find_last_of(fullname, '/')+1, #fullname)
+    vim.fn.chansend(job_id, {string.format("echo %s%s\r\njavac --module-path $PATH_TO_FX --add-modules javafx.web,javafx.media %s\r\n", "executing buffer: ", fullname, filename)})
+end)
+vim.keymap.set("n", "<space>jfxr", function()
+    local fullname = vim.api.nvim_buf_get_name(0)
+    local filename = fullname:sub(find_last_of(fullname, '/')+1, #fullname)
+    vim.fn.chansend(job_id, {string.format("echo %s%s\r\njava --module-path $PATH_TO_FX --add-modules javafx.web,javafx.media %s\r\n", "executing buffer: ", fullname, filename:sub(1, find_last_of(filename, '.')-1))})
 end)
