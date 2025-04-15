@@ -9,6 +9,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 vim.g.moonflyVirtualTextColor = true
+vim.g.moonflyUnderlineMatchParen = true
 vim.cmd[[colorscheme moonfly]]
 
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -18,6 +19,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 		vim.highlight.on_yank()
 	end,
 })
+vim.diagnostic.config({virtual_text = true})
 
 vim.api.nvim_create_autocmd('TermOpen', {
 	group = vim.api.nvim_create_augroup('custom-term-open', {clear = true}), 
@@ -28,6 +30,12 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 --sets space esc to exit terminal mode, normal esc can cause problems, this may as well
 vim.keymap.set("t", "<space><Esc>", "<C-\\><C-n>")
+
+on_attach = function(client, bufnr)
+    if client.server_capabilities.inlayHintProvider then
+	vim.lsp.inlay_hint.enable(true)
+    end
+end
 
 --set runc to run latest compiled c program, could be used to build or make projects on the fly with keypresses, likely not as useful for individual file running 
 --vim.keymap.set("n", "<space>runc", function()vim.fn.chansend(job_id, {"./a.out\r\n"})end)

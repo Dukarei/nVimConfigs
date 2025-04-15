@@ -29,7 +29,7 @@ require("lazy").setup({
 { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
    {"nvim-lua/plenary.nvim"},
     -- import your plugins
-    {"pmizio/typescript-tools.nvim",dependencies = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },opts = {}},
+    {"pmizio/typescript-tools.nvim",dependencies = {"nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },opts = {inlay_hints = {enabled = true}}},
     {"williamboman/mason.nvim"},
     {"williamboman/mason-lspconfig.nvim"},
    { import = "config/plugins" }
