@@ -4,6 +4,20 @@ require("config.lazy")
 
 vim.opt.shiftwidth = 4 --changes tab width I believe
 --vim.opt.clipboard:append("unnamedplus") --makes 'p' work w/ clipboard
+
+vim.g.clipboard = {
+    name = 'myClipboard',
+    copy = {
+	["+"] = 'copyq add -',
+	["*"] = 'copyq add -',
+    },
+    paste = {
+	["+"] = 'copyq read 0',
+	["*"] = 'copyq read 0',
+    },
+    cache_enabled = 1,
+}
+
 -- Copy/paste from system clipboard
 vim.keymap.set({ 'n', 'x' }, 'cp', '"+y')
 vim.keymap.set({ 'n', 'x' }, 'cv', '"+p')
