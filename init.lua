@@ -1,9 +1,14 @@
 require('dkry')
+
 require("config.lazy")
 
 vim.opt.shiftwidth = 4 --changes tab width I believe
-vim.opt.clipboard:append("unnamedplus") --makes 'p' work w/ clipboard
-
+--vim.opt.clipboard:append("unnamedplus") --makes 'p' work w/ clipboard
+-- Copy/paste from system clipboard
+vim.keymap.set({ 'n', 'x' }, 'cp', '"+y')
+vim.keymap.set({ 'n', 'x' }, 'cv', '"+p')
+-- Delete without changing the registers
+vim.keymap.set({ 'n', 'x' }, 'x', '"_x')
 --should enable hybrid line numbers
 vim.wo.number = true
 vim.wo.relativenumber = true
