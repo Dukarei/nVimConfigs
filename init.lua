@@ -50,11 +50,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
 --sets space esc to exit terminal mode, normal esc can cause problems, this may as well
 vim.keymap.set("t", "<space><Esc>", "<C-\\><C-n>")
 
-on_attach = function(client, bufnr)
-    if client.server_capabilities.inlayHintProvider then
-	vim.lsp.inlay_hint.enable(true)
-    end
-end
 
 --set runc to run latest compiled c program, could be used to build or make projects on the fly with keypresses, likely not as useful for individual file running 
 --vim.keymap.set("n", "<space>runc", function()vim.fn.chansend(job_id, {"./a.out\r\n"})end)
@@ -82,6 +77,7 @@ end
 
 --make keycommands to autocompile jfx stuff(you need a $PATH_TO_FX var and fxml/swing are not included in this command)<-check openjfx.io
 vim.keymap.set("n", "<space>jfxc", function()
+    vim.cmd("write")
     local fullname = vim.api.nvim_buf_get_name(0)
     local filename = fullname:sub(find_last_of(fullname, '/')+1, #fullname)
     vim.fn.chansend(job_id, {string.format("echo %s%s\r\njavac --module-path $PATH_TO_FX --add-modules javafx.web,javafx.media %s\r\n", "executing buffer: ", fullname, filename)})

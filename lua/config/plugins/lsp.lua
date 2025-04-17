@@ -1,3 +1,8 @@
+local function join(...)
+    return table.concat({...}, "/"):gsub("//+", "/")
+end
+local jfxPath = os.getenv('PATH_TO_FX') or '~/Downloads/javafx-sdk-24/lib/'
+
 return {
     {
   "neovim/nvim-lspconfig",
@@ -26,20 +31,17 @@ return {
 	--    ensure_installed = {"ts_ls", "html", "cssls"}--add java, clang, python, etc
 --	})
 	require("lspconfig").lua_ls.setup{capabilities = capabilities}--cmd = {'cd home/dkry/.config/lsp/lua-language-server/bin/ && ./lua-language-server'}}
-	require("lspconfig").jdtls.setup{capabilities = capabilities}
+	require("lspconfig").jdtls.setup{
+	    capabilities = capabilities
+	    --the below does not work to make lsp recognize jfx, look to instead add gradle stuff(github nvim jdtls question forum)
+	    }
 	require("lspconfig").clangd.setup{capabilities = capabilities}
 	require("lspconfig").pyright.setup{capabilities = capabilities}
 	--require("lspconfig").ts_ls.setup{}
 	require("lspconfig").html.setup{capabilities = capabilities}
 	require("lspconfig").cssls.setup{capabilities = capabilities}
 	require("typescript-tools").setup {capabilities = capabilities} --cmd = {'cd home/dkry/.config/lsp/lua-language-server/bin/ && ./lua-language-server'}}
-	vim.api.nvim_create_autocmd('LspAttach', {
-	    callback = function(args)
-		local c = vim.lsp.get_client_by_id(args.data.client_id)
-		if not c then return end
-		on_attach(c, args.buf)
-	    end,
-	})
   end,
     }
 }
+
